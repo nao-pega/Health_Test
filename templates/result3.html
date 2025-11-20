@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注意が必要な人のページ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-rose-50 to-red-100">
+    {% include 'header.html' %}
+    
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-2xl transform transition-all duration-300 hover:shadow-red-200">
+            <div class="space-y-8">
+                <!-- タイトルセクション -->
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold text-red-800 mb-4">注意が必要です</h1>
+                    <div class="h-1 w-32 bg-gradient-to-r from-red-400 to-rose-500 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- メインコンテンツ -->
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    今日は体調が思わしくなく、少し調子が悪いようです。無理せず、まずは体を休めることが大切です。
+                </p>
+
+                <!-- トピックセクション -->
+                <div class="bg-rose-50 p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-red-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        TOPIC
+                    </h2>
+                    <p class="text-lg text-gray-700" style="white-space: pre-line">{{ random_message }}</p>
+                </div>
+
+                <!-- ボタン -->
+                <div class="text-center">
+                    <a href="/top" 
+                       class="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white font-semibold py-3 px-8 rounded-lg
+                              hover:from-red-600 hover:to-rose-700 transform hover:scale-105 transition-all duration-300
+                              focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                        ホームページへ戻る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>

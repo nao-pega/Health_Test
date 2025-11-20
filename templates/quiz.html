@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>健康クイズ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .video-frame {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button {
+            transition: color 0.3s;
+        }
+        .nav-button:hover {
+            color: #2D3748;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
+        }
+        .video-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .pagetop {
+            height: 50px;
+            width: 50px;
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            background: #fff;
+            border: solid 2px #000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        .pagetop__arrow {
+            height: 10px;
+            width: 10px;
+            border-top: 3px solid #000;
+            border-right: 3px solid #000;
+            transform: translateY(20%) rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    {% include 'header.html' %}
+    <a class="pagetop" href="#"><div class="pagetop__arrow"></div></a>
+    <div class="container mx-auto px-4 py-8">
+        <div class="video-container rounded-xl shadow-2xl p-8 mb-8 bg-green-200">
+            <h1 class="text-3xl font-bold text-green-800 mb-6">健康クイズ</h1>
+            <div class=text-center>
+                <div class="mb-6">
+                    <div id="element1" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題1</h3>
+                        <p class="text-lg text-gray-700">1日あたり、成人が必要とする水分量の目安はどれくらいでしょうか？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q1" value="1" class="mr-2">約1L
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q1" value="2" class="mr-2">約2L
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q1" value="3" class="mr-2">約4L
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 2L</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element2" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題2</h3>
+                        <p class="text-lg text-gray-700">健康のために週に何回の運動が推奨されているでしょうか？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q2" value="1" class="mr-2">0~1回
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q2" value="2" class="mr-2">2~3回
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q2" value="3" class="mr-2">4回以上
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 2~3回</p>
+
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element3" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題3</h3>
+                        <p class="text-lg text-gray-700">成人に推奨される1日の野菜摂取量はどれくらいでしょうか？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q3" value="1" class="mr-2">100g
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q3" value="2" class="mr-2">200g
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q3" value="3" class="mr-2">350g
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 350g</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element4" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題4</h3>
+                        <p class="text-lg text-gray-700">成人はどの程度のBMI（体格指数）が最も病気になりにくいとされていますか？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q4" value="1" class="mr-2">18
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q4" value="2" class="mr-2">22
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q4" value="3" class="mr-2">25
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 22</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element5" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題5</h3>
+                        <p class="text-lg text-gray-700">高血圧の予防に最も効果的な方法はどれですか？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q5" value="1" class="mr-2">食塩の摂取制限
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q5" value="2" class="mr-2">高脂肪食の摂取
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q5" value="3" class="mr-2">定期的な運動
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 食塩の摂取制限</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element6" class="mt-4 p-4 bg-white rounded shadow-md" >
+                        <h3 class="text-xl font-semibold text-green-700">問題6</h3>
+                        <p class="text-lg text-gray-700">成人にとって、推奨される1日の睡眠時間はどのくらいでしょうか？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q6" value="1" class="mr-2">6〜7時間
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q6" value="2" class="mr-2">7〜9時間
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q6" value="3" class="mr-2">9〜10時間
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 7〜9時間</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element7" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題7</h3>
+                        <p class="text-lg text-gray-700">適量の飲酒とは、1日に何グラムの純アルコール摂取量のことを指しますか？（成人男性の場合）</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q7" value="1" class="mr-2">約20g
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q7" value="2" class="mr-2">約30g
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q7" value="3" class="mr-2">約40g
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 約20g</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element8" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題8</h3>
+                        <p class="text-lg text-gray-700">検診・診察室の血圧において高血圧とされる血圧の数値は?</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q8" value="1" class="mr-2">120/80mmHg以上
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q8" value="2" class="mr-2">130/85mmHg以上
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q8" value="3" class="mr-2">140/90mmHg以上
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 140/90mmHg以上</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element9" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題9</h3>
+                        <p class="text-lg text-gray-700">1日に推奨される歩数の目安は？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q9" value="1" class="mr-2">3,000歩
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q9" value="2" class="mr-2">7,000歩
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q9" value="3" class="mr-2">10,000歩
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: 10,000歩</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div id="element10" class="mt-4 p-4 bg-white rounded shadow-md">
+                        <h3 class="text-xl font-semibold text-green-700">問題10</h3>
+                        <p class="text-lg text-gray-700">健康的な食事で摂るべき油は？</p>
+                        <div class="mt-4 space-y-2">
+                            <label class="block">
+                                <input type="radio" name="q10" value="1" class="mr-2">トランス脂肪酸
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q10" value="2" class="mr-2">オメガ3脂肪酸
+                            </label>
+                            <label class="block">
+                                <input type="radio" name="q10" value="3" class="mr-2">飽和脂肪酸
+                            </label>
+                        </div>
+                        <button class="checkAnswer mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">答えを確認</button>
+                        <p class="answer mt-2 font-bold hidden text-green-600">正解: オメガ3脂肪酸</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // すべてのボタンを取得
+
+        document.querySelectorAll(".checkAnswer").forEach((button) => {
+        button.addEventListener("click", function () {
+            const questionDiv = this.closest(".mb-6");
+            const selectedAnswer = questionDiv.querySelector("input:checked");
+            const answerText = questionDiv.querySelector(".answer");
+            if (selectedAnswer) {
+                let correctAnswer;
+                if (selectedAnswer.name === "q1") {
+                    correctAnswer = "2"; // 正解: 2L
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 1日約2Lが推奨されています。"
+                        : "不正解！ 正解は 約2L です";
+                } else if (selectedAnswer.name === "q2") {
+                    correctAnswer = "2"; // 正解: 2~3回
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 週に2~3回の運動が推奨されています。"
+                        : "不正解！ 正解は 2～3回 です";
+                } else if (selectedAnswer.name === "q3") {
+                    correctAnswer = "3";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 成人に推奨される1日の野菜摂取量は約350gです。"
+                        : "不正解！ 正解は 約350g です";
+                } else if (selectedAnswer.name === "q4") {
+                    correctAnswer = "2";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ BMI22が最も病気になりにくいとされています"
+                        : "不正解！ 正解は BMI22 です";
+                } else if (selectedAnswer.name === "q5") {
+                    correctAnswer = "1";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 食塩の摂取制限が高血圧の予防に特に効果的です"
+                        : "不正解！ 正解は 食塩の摂取制限 です";
+                }else if (selectedAnswer.name === "q6") {
+                    correctAnswer = "2";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 睡眠時間は短すぎても長すぎてもダメです。7～9時間の睡眠を心掛けましょう"
+                        : "不正解！ 正解は 7～9時間 です";
+                }else if (selectedAnswer.name === "q7") {
+                    correctAnswer = "1";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 成人男性は1日に純アルコール約20gの摂取が適量とされています"
+                        : "不正解！ 正解は 約20g です";
+                }else if (selectedAnswer.name === "q8") {
+                    correctAnswer = "3";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 最大血圧140以上または最低血圧90mmHg以上だと高血圧とされます"
+                        : "不正解！ 140/90mmHg以上 です";
+                }else if (selectedAnswer.name === "q9") {
+                    correctAnswer = "3";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ 毎日10,000歩あるくことが推奨されています"
+                        : "不正解！ 正解は 10,000歩 です";
+                }else if (selectedAnswer.name === "q10") {
+                    correctAnswer = "2";
+                    answerText.textContent = selectedAnswer.value === correctAnswer
+                        ? "正解！ オメガ3脂肪酸は青魚やえごま油などに多く含まれており心臓血管疾患の死亡リスクを下げてくれます"
+                        : "不正解！ 正解は オメガ3脂肪酸 です";
+                }
+                answerText.classList.remove("hidden");
+                answerText.classList.remove("text-green-600", "text-red-600");
+                answerText.classList.add(selectedAnswer.value === correctAnswer ? "text-green-600" : "text-red-600");
+            } else {
+                // 選択されていない場合は警告メッセージを表示
+                answerText.textContent = "答えを選んでください！";
+                answerText.classList.add("text-red-600");
+                answerText.classList.remove("text-green-600");
+            }
+            answerText.classList.remove("hidden");
+        });
+    });
+</script>
+</body>
+{% include 'footer.html' %}
+
+</html>

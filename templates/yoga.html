@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ヨガ動画</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .video-frame {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button {
+            transition: color 0.3s;
+        }
+        .nav-button:hover {
+            color: #2d3748;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        }
+        .video-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    {% include 'header.html' %}
+    
+    <div class="container mx-auto px-4 py-8">
+        <div class="video-container rounded-xl shadow-2xl p-8 mb-8">
+            <h1 class="text-3xl font-bold text-green-800 mb-6">健康的な生活のためのヨガ講座</h1>
+            
+            <div id="yoga-video" class="relative rounded-lg overflow-hidden">
+                <div class="absolute inset-0 gradient-bg opacity-10"></div>
+                
+                <div class="flex justify-center items-center">
+                    <button onclick="prevVideo()" 
+                            class="absolute left-4 z-10 transform hover:scale-110 transition-transform duration-300
+                                   bg-white/80 hover:bg-white text-green-600 rounded-full p-3 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+
+                    <iframe id="video-frame" 
+                            class="rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-[1.01]"
+                            width="800" height="450"
+                            src="https://www.youtube.com/embed/XmtuK8W-7t0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+
+                    <button onclick="nextVideo()"
+                            class="absolute right-4 z-10 transform hover:scale-110 transition-transform duration-300
+                                   bg-white/80 hover:bg-white text-green-600 rounded-full p-3 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const videos = [
+            "https://www.youtube.com/embed/XmtuK8W-7t0",
+            "https://www.youtube.com/embed/9oW6D9ez8rA",
+            "https://www.youtube.com/embed/2iQq5jFMvdI",
+            "https://www.youtube.com/embed/BzNtXdtA_fQ"
+        ];
+        let currentVideoIndex = 0;
+
+        function prevVideo() {
+            currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+            document.getElementById('video-frame').src = videos[currentVideoIndex];
+        }
+
+        function nextVideo() {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            document.getElementById('video-frame').src = videos[currentVideoIndex];
+        }
+    </script>
+</body>
+{% include 'footer.html' %}
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>共通ヘッダー</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function toggleDropdown() {
+            document.getElementById('dropdown-menu').classList.toggle('hidden');
+        }
+
+        function showYogaVideo() {
+            document.getElementById('yoga-video').classList.remove('hidden');
+        }
+    </script>
+</head>
+<body>
+    <header class="bg-gradient-to-r from-green-600 to-emerald-700 p-6 flex justify-between items-center shadow-lg">
+        <div class="text-white text-lg font-semibold">HealthTest</div>
+        <nav class="flex">
+            <a href="/top" class="text-white hover:bg-green-500/50 px-3 py-2 rounded-lg transition duration-300 {% if request.path == '/top' %}bg-green-700{% endif %}">ホームページ</a>
+            <a href="/food_analysis" class="text-white hover:bg-green-500/50 px-3 py-2 rounded-lg transition duration-300 {% if request.path == '/food_analysis' %}bg-green-700{% endif %}">AI食事分析</a>
+            <a href="/foodRecipe" class="text-white hover:bg-green-500/50 px-3 py-2 rounded-lg transition duration-300 {% if request.path == '/foodRecipe' %}bg-green-700{% endif %}">食事療法</a>
+            <a href="/yoga" class="text-white hover:bg-green-500/50 px-3 py-2 rounded-lg transition duration-300 {% if request.path == '/yoga' %}bg-green-700{% endif %}">3分ヨガ・ストレッチ</a>
+            <a href="/quiz" class="text-white hover:bg-green-500/50 px-3 py-2 rounded-lg transition duration-300 {% if request.path == '/quiz' %}bg-green-700{% endif %}">健康クイズ</a>
+            <a href="/personal_health" class="text-white hover:bg-green-500/50 px-3 py-2 rounded-lg transition duration-300 {% if request.path == '/personal_health' %}bg-green-700{% endif %}">パーソナルヘルスプラン</a>
+        </nav>
+        <div class="relative">
+            <button class="text-white focus:outline-none transform hover:scale-105 transition-transform duration-300" onclick="toggleDropdown()">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7iTooCgMcN1fLL0gceSwDmeCLEpdpLWZF_A&s" alt="アカウント管理" class="rounded-full w-12 h-12 border-2 border-white/50">
+            </button>
+            <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-1 hidden transform transition-all duration-300 z-50">
+                <a href="/memories" class="block px-4 py-2 text-emerald-700 hover:bg-emerald-50">思い出</a>
+                <a href="/account" class="block px-4 py-2 text-emerald-700 hover:bg-emerald-50">アカウント管理</a>
+                <a href="/health_questions" class="block px-4 py-2 text-emerald-700 hover:bg-emerald-50">健康状態チェック</a>
+                <a href="/logout" class="block px-4 py-2 text-emerald-700 hover:bg-emerald-50">ログアウト</a>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>共通ヘッダー</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function toggleDropdown() {
+            document.getElementById('dropdown-menu').classList.toggle('hidden');
+        }
+        function showYogaVideo() {
+            document.getElementById('yoga-video').classList.remove('hidden');
+        }
+    </script>
+    <style>
+      .dropdown2 {
+        position: fixed;
+        top: 7rem;
+        right: 2rem;
+        background-color: #FFFFFF;
+        flex-direction: column;
+        min-width: 15rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 50;
+        display: flex;
+        transition: transform 0.3s ease;
+        transform: translateY(0);
+      }
+      .dropdown2:hover {
+        transform: translateY(2px);
+      }
+      .dropdown2 a {
+        padding: 1rem 2rem;
+        text-decoration: none;
+        color: #000000;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        border-radius: 0.375rem;
+      }
+      .dropdown2 a:hover {
+        background-color: #29C177;
+        color: white;
+      }
+      .content-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: rgb(253,255,254);
+          padding: 40px;
+          max-width: 1200px;
+          margin: 20px 0;
+      }
+      .text-content {
+          flex: 1;
+          text-align: left;
+          font-size: 26px;
+          line-height: 1.6;
+          max-width: 100%;
+      }
+      .image-container {
+          flex: 1;
+          max-width: 50%;
+          text-align: right;
+      }
+      .image-container img {
+          width: 100%;
+          max-width: 1200px;
+          height: auto;
+          border-radius: 10px;
+      }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <div class="flex">
+        <!-- Main content area -->
+        <div id="contentArea" class="flex-1 pt-4 px-4" style="min-height: calc(100vh - 7rem); background: rgb(241,253,248) url('m_placeholder') center center / cover no-repeat;">
+            <h1 id="placeholderText" class="text-black text-xl">
+                <!-- 初期表示のコンテンツ -->
+                <div class="content-container shadow-2xl rounded-xl">
+                    <div class="text-content">
+                        <h1>黄金律</h1>
+                        <p>
+                            健康的な食生活を実現するための基本は、加工食品を徹底的に避けることです。これらの食品は、体に悪影響を及ぼす有害な化学物質を含んでいるだけでなく、脂質、炭水化物、タンパク質、香料が絶妙に調整され、依存性を引き起こすように作られています。その結果、加工食品の強い味に慣れてしまうと、自然な素材本来の豊かな風味が感じられず、健康的な食事が物足りなく思えてしまいます。
+                        </p>
+                    </div>
+                    <div class="image-container">
+                        <img src="/static/img/processed.jpg" alt="ultraprocessed">
+                    </div>
+                </div>
+            </h1>
+        </div>
+
+        <!-- Fixed position menu -->
+        <div id="dropdownMenu2" class="dropdown2">
+            <a id="shokujiA" class="hover:text-white cursor-pointer">地中海式食生活</a>
+            <a id="shokujiB" class="hover:text-white cursor-pointer">伝統的な日本食</a>
+            <a id="shokujiC" class="hover:text-white cursor-pointer">ビーガン食</a>
+            <a id="shokujiD" class="hover:text-white cursor-pointer">低炭水化物ダイエット</a>
+            <!-- Inline SVG magnifying glass with “さがす” -->
+            <a id="shokujiSearch" class="hover:text-white cursor-pointer flex items-center gap-[12px]" aria-label="さがす">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                     viewBox="0 0 24 24" class="mise-icon mise-icon-search-unselected">
+                  <path stroke="currentColor" stroke-width="1.5" d="M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"></path>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5" d="m15 15 5 5"></path>
+                </svg>
+              </div>
+              <div class="sidebar-inactive:hidden text-[19px]">さがす</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+      const linkA2 = document.getElementById('shokujiA');
+      const linkB2 = document.getElementById('shokujiB');
+      const linkC2 = document.getElementById('shokujiC');
+      const linkD2 = document.getElementById('shokujiD');
+      const linkSearch2 = document.getElementById('shokujiSearch');
+      const content2 = document.getElementById('contentArea');
+      const placeholderText2 = document.getElementById('placeholderText');
+      
+      let currentDiet = null;
+
+      function highlightLink(link) {
+        [linkA2, linkB2, linkC2, linkD2, linkSearch2].forEach(el => {
+          el.style.backgroundColor = '';
+          el.style.color = '';
+        });
+        link.style.backgroundColor = '#29C177';
+        link.style.color = 'white';
+      }
+
+      linkA2.addEventListener('click', () => {
+        highlightLink(linkA2);
+        currentDiet = '地中海';
+        content2.style.background = "rgb(241,253,248) url('a_placeholder') center center / cover no-repeat";
+        placeholderText2.innerHTML = `
+    <div class="content-container shadow-2xl rounded-xl">
+        <div class="text-content">
+            <h1>地中海式食生活</h1>
+            <p>
+                地中海式食生活は、健康的な食事の金字塔と称されるほど高く評価されています。精製されていない穀物や健康的な脂肪を中心に、オリーブオイル、全粒粉、果物、シーフード、新鮮な野菜など、多彩な食材をバランスよく取り入れるのが特徴です。体重管理はもちろん、心臓病予防や認知機能の低下防止にも効果が期待され、柔軟性に富むこの食生活は、世界中で支持されています。
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="/static/img/mediterranean.jpg" alt="地中海式食生活">
+        </div>
+    </div>
+`;
+      });
+
+      linkB2.addEventListener('click', () => {
+        highlightLink(linkB2);
+        currentDiet = '日本食';
+        content2.style.background = "rgb(241,253,248) url('b_placeholder') center center / cover no-repeat";
+        placeholderText2.innerHTML = `
+    <div class="content-container shadow-2xl rounded-xl">
+        <div class="text-content">
+            <h1>伝統的な日本食</h1>
+            <p>
+                伝統的な日本食は、自然な素材本来の旨みを活かすことを重視し、加工調味料で味を覆い隠さないのが特徴です。新鮮な魚介類を豊富に使用し、季節ごとに変わる小皿料理で提供されるため、腹八分目の原則に沿った節度ある食事が実現されます。世界的に見ても最も健康的な食習慣のひとつとされ、日本の豊かな食文化を象徴するものです。
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="/static/img/Washoku.jpg" alt="和食">
+        </div>
+    </div>
+`;
+      });
+
+      linkC2.addEventListener('click', () => {
+        highlightLink(linkC2);
+        currentDiet = 'ビーガン';
+        content2.style.background = "rgb(241,253,248) url('c_placeholder') center center / cover no-repeat";
+        placeholderText2.innerHTML = `
+    <div class="content-container shadow-2xl rounded-xl">
+        <div class="text-content">
+            <h1>ビーガン食</h1>
+            <p>
+                倫理的、環境的、健康的な観点から注目を浴びるビーガン食は、肉、乳製品、卵などの動物性食品を一切排除します。体重管理や血圧、血糖値の改善に寄与するとともに、老化の進行を遅らせる効果も期待されています。しかし、必要な栄養素を十分に摂取するためには、計画的な食事設計とサプリメントの活用が不可欠です。
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="/static/img/vegan.webp" alt="ビーガン食">
+        </div>
+    </div>
+`;
+      });
+
+      linkD2.addEventListener('click', () => {
+        highlightLink(linkD2);
+        currentDiet = '低炭水化物';
+        content2.style.background = "rgb(241,253,248) url('d_placeholder') center center / cover no-repeat";
+        placeholderText2.innerHTML = `
+    <div class="content-container shadow-2xl rounded-xl">
+        <div class="text-content">
+            <h1>低炭水化物ダイエット</h1>
+            <p>
+                低炭水化物ダイエットは、炭水化物の摂取を極力抑え、脂質とタンパク質を主要なエネルギー源とする最新の栄養法です。体は脂肪を効率的に燃焼するようになり、特にお腹周りの脂肪を減少させる効果が期待されます。さらに、近年の研究では2型糖尿病の改善にもつながる可能性が示されていますが、継続するには一定の努力が必要で、初心者にはやや挑戦的な食事法ともいえます.
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="/static/img/keto.avif" alt="低炭水化物食">
+        </div>
+    </div>
+`;
+      });
+
+      linkSearch2.addEventListener('click', () => {
+        highlightLink(linkSearch2);
+        // (Any code for your mini window or note can go here if needed)
+      });
+    </script>
+</body>
+</html>

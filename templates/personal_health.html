@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>パーソナルヘルスプラン</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .gradient-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    {% include 'header.html' %}
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- ユーザープロファイルセクション -->
+        <div class="gradient-card rounded-xl p-6 mb-8 shadow-lg">
+            <div class="flex items-center space-x-4 mb-6">
+                <img src="https://kotonohaworks.com/free-icons/wp-content/uploads/kkrn_icon_user_9.png" 
+                     alt="ユーザープロフィール" 
+                     class="rounded-full w-12 h-12"> <!-- サイズを12（48px）に変更 -->
+                <div>
+                    <h2 class="text-2xl font-bold text-green-800">
+                        {% if user %}
+                            {{ user.username }}さんの健康ダッシュボード
+                        {% else %}
+                            ゲストさんの健康ダッシュボード
+                        {% endif %}
+                    </h2>
+                    <p class="text-green-600">健康スコア: {{ user.health_score|default(75) }}/100</p>
+                </div>
+            </div>
+            
+            <!-- 健康状態トレンドグラフ -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-green-700 mb-4">健康状態の推移</h3>
+                <canvas id="healthTrendChart" class="w-full h-64"></canvas>
+            </div>
+        </div>
+
+        <!-- パーソナライズされたアドバイスカード -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 生活習慣アドバイス -->
+            <div class="gradient-card rounded-xl p-6 shadow-lg transform transition hover:scale-105">
+                <h3 class="text-lg font-semibold text-green-700 mb-4">あなたに最適な生活習慣</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-green-600">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                        </svg>
+                        <span>{{ lifestyle_advice }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 運動プラン -->
+            <div class="gradient-card rounded-xl p-6 shadow-lg transform transition hover:scale-105">
+                <h3 class="text-lg font-semibold text-green-700 mb-4">今週のエクササイズプラン</h3>
+                <div id="exercisePlan" class="space-y-3">
+                    <!-- 動的に生成される運動プラン -->
+                </div>
+            </div>
+
+            <!-- 栄養アドバイス -->
+            <div class="gradient-card rounded-xl p-6 shadow-lg transform transition hover:scale-105">
+                <h3 class="text-lg font-semibold text-green-700 mb-4">季節の食事アドバイス</h3>
+                <div id="nutritionAdvice" class="space-y-3">
+                    <!-- 動的に生成される栄養アドバイス -->
+                </div>
+            </div>
+        </div>
+
+        <!-- AI健康予測セクション -->
+        <div class="gradient-card rounded-xl p-6 mt-8 shadow-lg">
+            <h3 class="text-xl font-semibold text-green-700 mb-4">AIによる健康予測</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <h4 class="font-medium text-green-600">短期予測（1ヶ月）</h4>
+                    <p id="shortTermPrediction" class="text-gray-700">
+                        <!-- 動的に生成される短期予測 -->
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="font-medium text-green-600">改善提案</h4>
+                    <ul id="improvements" class="list-disc list-inside text-gray-700">
+                        <!-- 動的に生成される改善提案 -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 健康状態トレンドグラフの描画
+        const ctx = document.getElementById('healthTrendChart').getContext('2d');
+        const healthHistory = {{ user.health_history|tojson|safe }};
+        
+        // データがない場合のメッセージ表示
+        if (healthHistory.length === 0) {
+            ctx.font = '16px Arial';
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'center';
+            ctx.fillText('健康データはまだありません。右上のメニューから健康状態チェックを行ってください。', 
+                        ctx.canvas.width / 2, ctx.canvas.height / 2);
+        } else {
+            const labels = healthHistory.map(item => item.date);
+            const data = healthHistory.map(item => item.score);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '健康スコア',
+                        data: data,
+                        borderColor: 'rgb(34, 197, 94)',
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // 動的コンテンツの生成
+        document.getElementById('exercisePlan').innerHTML = generateExercisePlan();
+        document.getElementById('nutritionAdvice').innerHTML = generateNutritionAdvice();
+        document.getElementById('shortTermPrediction').innerHTML = generateHealthPrediction();
+        document.getElementById('improvements').innerHTML = generateImprovements();
+
+        // ユーティリティ関数
+        function generateExercisePlan() {
+            // ユーザーの過去のデータや季節に基づいて運動プランを生成
+            return `
+                <div class="flex items-center mb-2">
+                    <span class="text-green-600 font-medium">月曜日:</span>
+                    <span class="ml-2">ヨガ 20分</span>
+                </div>
+                <div class="flex items-center mb-2">
+                    <span class="text-green-600 font-medium">水曜日:</span>
+                    <span class="ml-2">ウォーキング 30分</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-green-600 font-medium">金曜日:</span>
+                    <span class="ml-2">ストレッチ 15分</span>
+                </div>
+            `;
+        }
+
+        function generateNutritionAdvice() {
+            // 季節や地域の特性を考慮した栄養アドバイスを生成
+            return `
+                <div class="mb-3">
+                    <h4 class="font-medium text-green-600">旬の食材</h4>
+                    <p>さつまいも、かぼちゃ、きのこ類</p>
+                </div>
+                <div>
+                    <h4 class="font-medium text-green-600">おすすめレシピ</h4>
+                    <p>根菜の温サラダ</p>
+                </div>
+            `;
+        }
+
+        function generateHealthPrediction() {
+            return '現在の生活習慣を維持することで、1ヶ月後には睡眠の質が10%向上すると予測されます。';
+        }
+
+        function generateImprovements() {
+            return `
+                <li>就寝時間を30分早めることで、朝の目覚めが改善される可能性があります</li>
+                <li>午後のストレッチを追加することで、肩こりの軽減が期待できます</li>
+                <li>水分摂取を1日200ml増やすことをお勧めします</li>
+            `;
+        }
+    </script>
+</body>
+{% include 'footer.html' %}
+</html>

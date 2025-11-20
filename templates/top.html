@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>トップページ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(10px);
+        }
+        .feature-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    {% include 'header.html' %}
+    
+    <main class="container mx-auto px-4 py-12">
+        <!-- アドバイスセクション -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">
+                パーソナライズされたアドバイス
+            </h2>
+            {% if advice_list %}
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {% for advice in advice_list %}
+                        <div class="gradient-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                              d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-gray-700">{{ advice }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="gradient-card p-8 rounded-xl text-center">
+                    <p class="text-gray-600 text-lg">特に悪い点はないようです。<br>
+                                                    この調子で頑張りましょう！</p>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- 機能紹介セクション -->
+        <section class="space-y-12">
+            <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">
+                健康サポート機能
+            </h2>
+            
+            <!-- 食事療法 -->
+            <div class="feature-card gradient-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="md:flex">
+                    <div class="md:flex-shrink-0">
+                        <img class="h-48 w-full md:w-64 object-cover" 
+                             src="https://thumb.ac-illust.com/f2/f242793dc541421bef6bfed4ee9d91f1_t.jpeg" 
+                             alt="食事療法">
+                    </div>
+                    <div class="p-8">
+                        <div class="tracking-wide text-green-700 font-semibold text-xl">食事療法ガイド</div>
+                        <p class="mt-2 text-gray-600">
+                            和食や洋食など、バランスの取れた食事メニューを豊富に紹介。
+                            あなたの健康状態に合わせた食事プランをご提案します。
+                        </p>
+                        <a href="/foodRecipe" class="mt-4 inline-block px-6 py-2 bg-green-600 text-white rounded-lg
+                                         hover:bg-green-700 transition-colors duration-300">
+                            詳しく見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI食事分析 -->
+            <div class="feature-card gradient-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="md:flex">
+                    <div class="md:flex-shrink-0">
+                        <img class="h-48 w-full md:w-64 object-cover" 
+                             src="/static/img/AIEAT.jpg" 
+                             alt="AI食事分析">
+                    </div>
+                    <div class="p-8">
+                        <div class="tracking-wide text-green-700 font-semibold text-xl">AI食事分析</div>
+                        <p class="mt-2 text-gray-600">
+                            食事の写真をアップロードするだけで、
+                            AIが栄養バランスを分析し、健康的な食生活のアドバイスを提供します。
+                        </p>
+                        <a href="/food_analysis" class="mt-4 inline-block px-6 py-2 bg-green-600 text-white rounded-lg
+                                         hover:bg-green-700 transition-colors duration-300">
+                            分析を始める
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ヨガ -->
+            <div class="feature-card gradient-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="md:flex">
+                    <div class="md:flex-shrink-0">
+                        <img class="h-48 w-full md:w-64 object-cover" 
+                             src="https://illust-navi.com/wp-content/uploads/2019/03/00168yoga-woman-hato.png" 
+                             alt="ヨガ">
+                    </div>
+                    <div class="p-8">
+                        <div class="tracking-wide text-green-700 font-semibold text-xl">3分ヨガ講座</div>
+                        <p class="mt-2 text-gray-600">
+                            忙しい毎日でも続けられる、簡単なヨガポーズをご紹介。
+                            猫背解消や肩こり改善に効果的なストレッチも掲載しています。
+                        </p>
+                        <a href="/yoga" class="mt-4 inline-block px-6 py-2 bg-green-600 text-white rounded-lg
+                                             hover:bg-green-700 transition-colors duration-300">
+                            ヨガを始める
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 健康クイズ -->
+            <div class="feature-card gradient-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="md:flex">
+                    <div class="md:flex-shrink-0">
+                        <img class="h-48 w-full md:w-64 object-cover" 
+                             src="/static/img/quiz.png" 
+                             alt="健康クイズ">
+                    </div>
+                    <div class="p-8">
+                        <div class="tracking-wide text-green-700 font-semibold text-xl">健康クイズ</div>
+                        <p class="mt-2 text-gray-600">
+                            楽しみながら健康知識を身につけられる
+                            クイズコーナー。毎日の健康管理に役立つ
+                            豆知識が学べます。
+                        </p>
+                        <a href="/quiz" class="mt-4 inline-block px-6 py-2 bg-green-600 text-white rounded-lg
+                                         hover:bg-green-700 transition-colors duration-300">
+                            クイズに挑戦
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- パーソナルケア -->
+            <div class="feature-card gradient-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="md:flex">
+                    <div class="md:flex-shrink-0">
+                        <img class="h-48 w-full md:w-64 object-cover" 
+                             src="https://jitanda.com/j/j78_8/tnimg_j78_8.png" 
+                             alt="パーソナル">
+                    </div>
+                    <div class="p-8">
+                        <div class="tracking-wide text-green-700 font-semibold text-xl">パーソナルヘルスケア</div>
+                        <p class="mt-2 text-gray-600">
+                            あなたの健康状態を分析し、最適なアドバイスを提供。
+                            日々の健康管理をサポートします。
+                        </p>
+                        <a href="/personal_health" class="mt-4 inline-block px-6 py-2 bg-green-600 text-white rounded-lg
+                                                       hover:bg-green-700 transition-colors duration-300">
+                            健康管理を始める
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+{% include 'footer.html' %}
+</html>

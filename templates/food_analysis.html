@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>AI食事分析</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(10px);
+        }
+        .preview-container {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .preview-container.has-image {
+            padding: 0;
+        }
+        .preview-image {
+            max-height: 300px;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+        }
+    </style>
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const preview = document.getElementById('preview-image');
+                const previewContainer = document.getElementById('preview-container');
+                const uploadIcon = document.getElementById('upload-icon');
+                const uploadText = document.getElementById('upload-text');
+                
+                preview.src = reader.result;
+                preview.classList.remove('hidden');
+                previewContainer.classList.add('has-image');
+                uploadIcon.classList.add('hidden');
+                uploadText.classList.add('hidden');
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    {% include 'header.html' %}
+    
+    <main class="container mx-auto px-4 py-12">
+        <div class="gradient-card rounded-xl shadow-2xl p-8 max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-green-800 mb-8 text-center">AI食事分析</h1>
+            
+            <div class="mb-8">
+                <form action="/analyze_food" method="post" enctype="multipart/form-data" class="space-y-6">
+                    <div class="preview-container flex flex-col items-center p-8 border-2 border-dashed border-green-300 rounded-lg bg-green-50"
+                         id="preview-container">
+                        <label class="w-full cursor-pointer">
+                            <div class="flex flex-col items-center">
+                                <svg id="upload-icon" class="w-12 h-12 text-green-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                                </svg>
+                                <span id="upload-text" class="text-green-600">食事の写真をアップロード</span>
+                                <img id="preview-image" class="preview-image hidden" src="#" alt="プレビュー">
+                            </div>
+                            <input type="file" name="food_image" class="hidden" accept="image/*" required
+                                   onchange="previewImage(event)">
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300">
+                        分析開始
+                    </button>
+                </form>
+            </div>
+
+            {% if analysis_result %}
+            <div class="space-y-6">
+                <div class="bg-white/80 rounded-lg p-6 shadow-md">
+                    <h2 class="text-xl font-semibold text-green-800 mb-4">栄養分析結果</h2>
+                    <div class="flex gap-6">
+                        <!-- 栄養情報 -->
+                        <div class="flex-1">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-gray-600">推定カロリー</p>
+                                    <p class="text-2xl font-bold text-green-600">{{ analysis_result.calories }}kcal</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600">タンパク質</p>
+                                    <p class="text-lg font-semibold">{{ analysis_result.protein }}g</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600">炭水化物</p>
+                                    <p class="text-lg font-semibold">{{ analysis_result.carbs }}g</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600">脂質</p>
+                                    <p class="text-lg font-semibold">{{ analysis_result.fat }}g</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 分析した画像 -->
+                        <div class="w-64 flex-shrink-0">
+                            <img id="analyzed-image" 
+                                 src="{{ url_for('static', filename='uploads/' + analysis_result.image_filename) }}" 
+                                 alt="分析した食事" 
+                                 class="w-full h-48 object-cover rounded-lg shadow-md">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/80 rounded-lg p-6 shadow-md">
+                    <h2 class="text-xl font-semibold text-green-800 mb-4">AIからのアドバイス</h2>
+                    <p class="text-gray-700">{{ analysis_result.advice }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</body>
+{% include 'footer.html' %}
+</html>

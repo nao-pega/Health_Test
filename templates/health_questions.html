@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>健康質問</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        }
+        .select-custom {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2315803d' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8 px-4">
+    <div class="max-w-2xl mx-auto bg-white/80 backdrop-blur-lg p-8 rounded-xl shadow-2xl">
+        <h2 class="text-3xl font-bold mb-8 text-center text-green-800">健康状態チェック</h2>
+        <form method="post" action="/health_questions" class="space-y-6">
+            <div class="space-y-6">
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">1. 最近よく眠れていますか？</label>
+                    <select name="q1" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="2">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="0">いいえ</option>
+                    </select>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">2. 食欲はありますか？</label>
+                    <select name="q2" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="2">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="0">いいえ</option>
+                    </select>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">3. バランスの取れた食事をとれているか？</label>
+                    <select name="q3" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="2">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="0">いいえ</option>
+                    </select>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">4. 最近運動していますか？</label>
+                    <select name="q4" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="2">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="0">いいえ</option>
+                    </select>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">5. ストレスを感じていますか？</label>
+                    <select name="q5" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="0">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="2">いいえ</option>
+                    </select>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">6. 最近体調に変化はありますか？</label>
+                    <select name="q6" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="0">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="2">いいえ</option>
+                    </select>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg transition-all duration-300 hover:shadow-md">
+                    <label class="block text-green-700 font-medium mb-3">7. 社会的な交流はありますか？</label>
+                    <select name="q7" class="select-custom w-full px-4 py-2 border border-green-200 rounded-lg 
+                        focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white/50 transition duration-300">
+                        <option value="2">はい</option>
+                        <option value="1">まあまあ</option>
+                        <option value="0">いいえ</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <button type="submit" 
+                    class="w-full gradient-bg text-white py-3 px-6 rounded-lg 
+                    hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                    focus:ring-green-500 transform transition-all duration-300 
+                    hover:scale-[1.02] font-medium text-lg shadow-lg">
+                    結果を確認する
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="text-center mt-6">
+        <p class="text-green-700 text-sm">
+            ※このチェックは一般的な健康状態の確認であり、医療診断に代わるものではありません
+        </p>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>

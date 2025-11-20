@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体調が普通だった人のページ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-100">
+    {% include 'header.html' %}
+    
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-2xl transform transition-all duration-300 hover:shadow-yellow-200">
+            <div class="space-y-8">
+                <!-- タイトルセクション -->
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold text-amber-800 mb-4">体調は普通です</h1>
+                    <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-yellow-500 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- メインコンテンツ -->
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    今日は特別な不調は感じませんが、健康を保つために少し気をつけることが大切です。
+                </p>
+
+                <!-- トピックセクション -->
+                <div class="bg-amber-50 p-6 rounded-xl">
+                    <h2 class="text-2xl font-semibold text-amber-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        TOPIC
+                    </h2>
+                    <p class="text-lg text-gray-700" style="white-space: pre-line">{{ random_message }}</p>
+                </div>
+
+                <!-- ボタン -->
+                <div class="text-center">
+                    <a href="/top" 
+                       class="inline-block bg-gradient-to-r from-amber-600 to-orange-600 text-lg font-semibold py-3 px-8 rounded-lg
+                              hover:from-amber-700 hover:to-orange-700 transform hover:scale-105 transition-all duration-300
+                              shadow-lg hover:shadow-xl
+                              focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                        ホームページへ戻る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>
